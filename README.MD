@@ -1,11 +1,11 @@
 # IQCC Broker
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/rafalmnich/exporter)](https://goreportcard.com/report/github.com/rafalmnich/exporter)
-[![Build Status](https://travis-ci.org/rafalmnich/exporter.svg?branch=master)](https://travis-ci.org/rafalmnich/exporter)
+[![Go Report Card](https://goreportcard.com/badge/github.com/rafalmnich/broker)](https://goreportcard.com/report/github.com/rafalmnich/broker)
+[![Build Status](https://travis-ci.org/rafalmnich/broker.svg?branch=master)](https://travis-ci.org/rafalmnich/broker)
 [![Coverage Status](https://coveralls.io/repos/github/rafalmnich/broker/badge.svg?branch=master)](https://coveralls.io/github/rafalmnich/broker?branch=master)
-[![GoDoc](https://godoc.org/github.com/rafalmnich/exporter?status.svg)](https://godoc.org/github.com/rafalmnich/exporter)
-[![GitHub release](https://img.shields.io/github/release/rafalmnich/exporter.svg)](https://github.com/rafalmnich/exporter/releases)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/rafalmnich/exporter/master/LICENSE)
+[![GoDoc](https://godoc.org/github.com/rafalmnich/broker?status.svg)](https://godoc.org/github.com/rafalmnich/broker)
+[![GitHub release](https://img.shields.io/github/release/rafalmnich/broker.svg)](https://github.com/rafalmnich/broker/releases)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/rafalmnich/broker/master/LICENSE)
 
 
 
