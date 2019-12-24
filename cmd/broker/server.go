@@ -21,10 +21,12 @@ func runServer(c *cli.Context) error {
 	}
 	defer ctx.Close()
 
-	go runHealthCheck(ctx)
-
 	publisher := newPublisher(ctx)
-	mux := server.NewMux(publisher)
+	opts := server.Opts{
+		Username: ctx.String(flagAuthUser),
+		Password: ctx.String(flagAuthPass),
+	}
+	mux := server.NewMux(publisher, opts)
 	mux = middleware.WithContext(ctx, mux)
 
 	port := c.String(clix.FlagPort)
