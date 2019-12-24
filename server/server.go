@@ -11,25 +11,33 @@ import (
 
 const (
 	username = "iqccuser"
-	password = "ihe*(#(DUjoas389rfj"
+	password = "ihe*((DUjoas389rfj"
 )
 
+// Server is the server interface
 type Server interface {
 	health.Reporter
 }
 
-func NewMux(p broker.Publisher) http.Handler {
+// Opts are base auth options for server
+type Opts struct {
+	Username string
+	Password string
+}
+
+// NewMux returns a http handler with action endpoint
+func NewMux(p broker.Publisher, opts Opts) http.Handler {
 	mux := bone.New()
 
-	mux.Post("/action", ActionHandler(p))
+	mux.Post("/action", actionHandler(p, opts))
 
 	return mux
 }
 
-func ActionHandler(p broker.Publisher) http.Handler {
+func actionHandler(p broker.Publisher, opts Opts) http.Handler {
 	// innermost
 	h := middleware.SendAction(p)
-	h = middleware.BasicAuth(h, username, password, "Please enter your username and password for this site")
+	h = middleware.BasicAuth(h, opts.Username, opts.Password, "Please enter your username and password for this site")
 	// outermost
 	return h
 }

@@ -8,6 +8,7 @@ import (
 	"github.com/rafalmnich/broker"
 )
 
+// SendAction deserializes the message from request and publishes it.
 func SendAction(p broker.Publisher) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Body == nil {
