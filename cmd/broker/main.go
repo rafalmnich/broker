@@ -11,44 +11,51 @@ import (
 )
 
 const (
-	flagBaseUri        = "input-source"
-	flagDBUri          = "db-uri"
-	flagImportPeriod   = "import-period"
-	flagStartOffset    = "start-offset"
-	flagImportOnlyOnce = "import-only-once"
-	flagBatchSize      = "batch-size"
+	flagMQTTHost      = "mqtt-host"
+	flagMQTTUser      = "mqtt-user"
+	flagMQTTPass      = "mqtt-pass"
+	flagMQTTPort      = "mqtt-port"
+	flagMQTTTopicName = "mqtt-topic-name"
+
+	flagAuthUser = "auth-user"
+	flagAuthPass = "auth-pass"
 )
 
 var flags = clix.Flags{
 	cli.StringFlag{
-		Name:   flagBaseUri,
-		Usage:  "Source host for imported data",
-		EnvVar: "BASE_URI",
+		Name:   flagMQTTHost,
+		Usage:  "MQTT server host",
+		EnvVar: "MQTT_HOST",
 	},
 	cli.StringFlag{
-		Name:   flagDBUri,
-		Usage:  "Postgres url",
-		EnvVar: "DB_URI",
+		Name:   flagMQTTUser,
+		Usage:  "MQTT user",
+		EnvVar: "MQTT_USER",
 	},
-	cli.DurationFlag{
-		Name:   flagImportPeriod,
-		Usage:  "The import period - shouldn't be less than 1 min",
-		EnvVar: "IMPORT_PERIOD",
-	},
-	cli.DurationFlag{
-		Name:   flagStartOffset,
-		Usage:  "How far from now to start getting readings, if no readings in database",
-		EnvVar: "START_OFFSET",
-	},
-	cli.BoolFlag{
-		Name:   flagImportOnlyOnce,
-		Usage:  "Import the data only once and die - mostly for testing",
-		EnvVar: "IMPORT_ONLY_ONCE",
+	cli.StringFlag{
+		Name:   flagMQTTPass,
+		Usage:  "MQTT password",
+		EnvVar: "MQTT_PASS",
 	},
 	cli.IntFlag{
-		Name:   flagBatchSize,
-		Usage:  "Batch size for committing data in sink",
-		EnvVar: "BATCH_SIZE",
+		Name:   flagMQTTPort,
+		Usage:  "MQTT Port",
+		EnvVar: "MQTT_PORT",
+	},
+	cli.StringFlag{
+		Name:   flagMQTTTopicName,
+		Usage:  "MQTT topic name",
+		EnvVar: "MQTT_TOPIC_NAME",
+	},
+	cli.StringFlag{
+		Name:   flagAuthUser,
+		Usage:  "Base auth user",
+		EnvVar: "AUTH_USER",
+	},
+	cli.StringFlag{
+		Name:   flagAuthPass,
+		Usage:  "Base auth password",
+		EnvVar: "AUTH_PASS",
 	},
 }.Merge(clix.CommonFlags, clix.ServerFlags)
 

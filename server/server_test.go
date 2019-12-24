@@ -13,10 +13,15 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var serverOpts = server.Opts{
+	Username: "iqccuser",
+	Password: "ihe*((DUjoas389rfj",
+}
+
 func TestNewMux(t *testing.T) {
 	p := new(mocks.Publisher)
 
-	mux := server.NewMux(p)
+	mux := server.NewMux(p, serverOpts)
 
 	a := broker.Actions{
 		{
@@ -35,7 +40,7 @@ func TestNewMux(t *testing.T) {
 	p.On("Publish", a).Return(nil)
 
 	r, _ := http.NewRequest("POST", "/action", strings.NewReader(string(aJson)))
-	r.SetBasicAuth("iqccuser", "ihe*(#(DUjoas389rfj")
+	r.SetBasicAuth("iqccuser", "ihe*((DUjoas389rfj")
 	w := httptest.NewRecorder()
 
 	mux.ServeHTTP(w, r)
