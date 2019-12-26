@@ -21,7 +21,7 @@ const (
 	flagAuthPass = "auth-pass"
 
 	flagMassHost = "mass-host"
-	flagMassUrl  = "mass-url"
+	flagMassURL  = "mass-url"
 )
 
 var mqttFlags = clix.Flags{
@@ -73,7 +73,7 @@ var subscriberFlags = clix.Flags{
 		EnvVar: "MASS_HOST",
 	},
 	cli.StringFlag{
-		Name:   flagMassUrl,
+		Name:   flagMassURL,
 		Usage:  "MASS http api url",
 		EnvVar: "MASS_URL",
 	},

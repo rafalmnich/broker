@@ -20,7 +20,7 @@ func Test_performer_MakeActions(t *testing.T) {
 		}, nil
 	})
 
-	p := broker.NewPerformer(client, "/actions")
+	p := broker.NewHTTPPerformer(client, "/actions")
 
 	actions := broker.Actions{
 		{
@@ -41,7 +41,7 @@ func Test_performer_MakeActions_errored(t *testing.T) {
 		return nil, errors.New("test error")
 	})
 
-	p := broker.NewPerformer(client, "/actions")
+	p := broker.NewHTTPPerformer(client, "/actions")
 
 	actions := broker.Actions{
 		{

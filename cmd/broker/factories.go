@@ -48,7 +48,7 @@ func newSubscriber(ctx *clix.Context) broker.Subscriber {
 	client := connect(prepareMqttOpts(ctx))
 
 	slingClient := newSlingClient(ctx)
-	performer := broker.NewPerformer(slingClient, ctx.String(flagMassUrl))
+	performer := broker.NewHTTPPerformer(slingClient, ctx.String(flagMassURL))
 
 	return broker.NewSubscriber(ctx, client, performer)
 
