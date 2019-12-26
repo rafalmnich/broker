@@ -3,6 +3,7 @@ module github.com/rafalmnich/broker
 go 1.13
 
 require (
+	github.com/dghubble/sling v1.3.0
 	github.com/eclipse/paho.mqtt.golang v1.2.0
 	github.com/go-zoo/bone v1.3.0
 	github.com/joho/godotenv v1.3.0
