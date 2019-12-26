@@ -19,9 +19,12 @@ const (
 
 	flagAuthUser = "auth-user"
 	flagAuthPass = "auth-pass"
+
+	flagMassHost = "mass-host"
+	flagMassUrl  = "mass-url"
 )
 
-var flags = clix.Flags{
+var mqttFlags = clix.Flags{
 	cli.StringFlag{
 		Name:   flagMQTTHost,
 		Usage:  "MQTT server host",
@@ -47,6 +50,10 @@ var flags = clix.Flags{
 		Usage:  "MQTT topic name",
 		EnvVar: "MQTT_TOPIC_NAME",
 	},
+}
+
+var serverFlags = clix.Flags{
+
 	cli.StringFlag{
 		Name:   flagAuthUser,
 		Usage:  "Base auth user",
@@ -57,7 +64,20 @@ var flags = clix.Flags{
 		Usage:  "Base auth password",
 		EnvVar: "AUTH_PASS",
 	},
-}.Merge(clix.CommonFlags, clix.ServerFlags)
+}.Merge(mqttFlags, clix.CommonFlags, clix.ServerFlags)
+
+var subscriberFlags = clix.Flags{
+	cli.StringFlag{
+		Name:   flagMassHost,
+		Usage:  "MASS http api host",
+		EnvVar: "MASS_HOST",
+	},
+	cli.StringFlag{
+		Name:   flagMassUrl,
+		Usage:  "MASS http api url",
+		EnvVar: "MASS_URL",
+	},
+}.Merge(mqttFlags, clix.CommonFlags, clix.ServerFlags)
 
 // Version is the compiled application version.
 var Version = "¯\\_(ツ)_/¯"
@@ -66,8 +86,14 @@ var commands = []cli.Command{
 	{
 		Name:   "server",
 		Usage:  "Run the server",
-		Flags:  flags,
+		Flags:  serverFlags,
 		Action: runServer,
+	},
+	{
+		Name:   "subscriber",
+		Usage:  "Run the subscriber",
+		Flags:  subscriberFlags,
+		Action: runSubscriber,
 	},
 }
 

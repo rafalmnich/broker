@@ -5,6 +5,7 @@ import (
 	"log"
 	"time"
 
+	"github.com/dghubble/sling"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 	"github.com/msales/pkg/v3/clix"
 	"github.com/msales/pkg/v3/health"
@@ -18,14 +19,17 @@ func newHealthCheck(ctx *clix.Context) health.ReporterFunc {
 }
 
 func newPublisher(ctx *clix.Context) broker.Publisher {
-	opts := mqtt.NewClientOptions().
+	client := connect(prepareMqttOpts(ctx))
+	topic := ctx.String(flagMQTTTopicName)
+
+	return broker.NewPublisher(client, topic)
+}
+
+func prepareMqttOpts(ctx *clix.Context) *mqtt.ClientOptions {
+	return mqtt.NewClientOptions().
 		AddBroker(fmt.Sprintf("tcp://%s:%d", ctx.String(flagMQTTHost), ctx.Int(flagMQTTPort))).
 		SetUsername(ctx.String(flagMQTTUser)).
 		SetPassword(ctx.String(flagMQTTPass))
-
-	client := connect(opts)
-	topic := ctx.String(flagMQTTTopicName)
-	return broker.NewPublisher(client, topic)
 }
 
 func connect(opts *mqtt.ClientOptions) mqtt.Client {
@@ -36,5 +40,22 @@ func connect(opts *mqtt.ClientOptions) mqtt.Client {
 	if err := token.Error(); err != nil {
 		log.Fatal(err)
 	}
+
 	return client
+}
+
+func newSubscriber(ctx *clix.Context) broker.Subscriber {
+	client := connect(prepareMqttOpts(ctx))
+
+	slingClient := newSlingClient(ctx)
+	performer := broker.NewPerformer(slingClient, ctx.String(flagMassUrl))
+
+	return broker.NewSubscriber(ctx, client, performer)
+
+}
+
+func newSlingClient(ctx *clix.Context) *sling.Sling {
+	doer := sling.New().Base(ctx.String(flagMassHost))
+
+	return doer
 }
